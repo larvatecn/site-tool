@@ -1,0 +1,46 @@
+{
+    "name": "larva/site-tool",
+    "description": "Site Tool components",
+    "keywords": [
+        "support",
+        "http",
+        "guzzle"
+    ],
+    "support": {
+        "issues": "https://github.com/larvatech/site-tool/issues",
+        "source": "https://github.com/larvatech/site-tool"
+    },
+    "authors": [
+        {
+            "name": "Larva Team",
+            "email": "support@larva.com.cn"
+        }
+    ],
+    "require": {
+        "php": "^7.1.3",
+        "ext-mbstring": "*",
+        "ext-simplexml": "*",
+        "ext-json": "*",
+        "ext-dom": "*",
+        "ext-libxml": "*",
+        "ext-intl": "*",
+        "ext-ctype": "*",
+        "ext-openssl": "*",
+        "larva/support": "^1.0",
+        "jeremykendall/php-domain-parser": "^5.4"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Larva\\Site\\Tool\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Larva\\Site\\Tool\\Tests\\": "tests/"
+        }
+    },
+    "license": "MIT"
+}
