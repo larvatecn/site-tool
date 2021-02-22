@@ -29,10 +29,7 @@ class Shenma
         if (is_array($urls)) {
             $urls = implode("\n", $urls);
         }
-        $client = new HttpClient();
-        return $client->post( "https://data.zhanzhang.sm.cn/urls?site={$site}&username={$username}&resource_name=mip_add&token={$token}", [
-            'body' => $urls
-        ]);
+        return HttpClient::make()->postText("https://data.zhanzhang.sm.cn/urls?site={$site}&username={$username}&resource_name=mip_add&token={$token}", $urls);
     }
 
     /**
@@ -50,6 +47,6 @@ class Shenma
         if (is_array($urls)) {
             $urls = implode("\n", $urls);
         }
-        return HttpClient::make()->post('post', "https://data.zhanzhang.sm.cn/urls?site={$site}&username={$username}&resource_name=mip_clean&token={$token}",$urls)->json();
+        return HttpClient::make()->postText("https://data.zhanzhang.sm.cn/urls?site={$site}&username={$username}&resource_name=mip_clean&token={$token}", $urls)->json();
     }
 }

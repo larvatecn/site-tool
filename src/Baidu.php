@@ -64,6 +64,8 @@ class Baidu
      * @param string $token Token
      * @param string|array $urls Url列表
      * @return array
+     * @throws ConnectionException
+     * @throws GuzzleException
      */
     public static function Delete($site, $token, $urls)
     {
