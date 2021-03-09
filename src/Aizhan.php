@@ -26,16 +26,14 @@ class Aizhan
      * @throws GuzzleException
      * @throws ConnectionException
      */
-    public static function BaiduRank($key, $domains)
+    public static function BaiduRank(string $key, $domains)
     {
-        $client = new HttpClient();
         if (is_array($domains)) {
             $domains = implode('|', $domains);
         }
-        $response = $client->acceptJson()->post("https://apistore.aizhan.com/baidurank/siteinfos/" . $key, [
+        return HttpClient::make()->postJSON("https://apistore.aizhan.com/baidurank/siteinfos/" . $key,[
             'domains' => $domains
         ]);
-        return $response->json();
     }
 
 }

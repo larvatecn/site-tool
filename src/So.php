@@ -27,7 +27,9 @@ class So
     {
         $token = static::token($url, $sid);
         $url = urlencode($url);
-        return HttpClient::make()->withUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36')->get("https://s.360.cn/so/zz.gif?url={$url}&sid={$sid}&token={$token}");
+        return HttpClient::make()
+            ->withUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36')
+            ->get("https://s.360.cn/so/zz.gif?url={$url}&sid={$sid}&token={$token}");
     }
 
     /**
@@ -38,7 +40,9 @@ class So
      */
     public static function checkInclude(string $url)
     {
-        $response = HttpClient::make()->withUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36')->get('get', "https://www.so.com/s?ie=utf-8&q={$url}");
+        $response = HttpClient::make()
+            ->withUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36')
+            ->get('get', "https://www.so.com/s?ie=utf-8&q={$url}");
         if (!strpos($response->body(), '找不到该UR')) {
             return true;
         } else {
@@ -71,9 +75,11 @@ class So
      */
     public static function suggestion($word)
     {
-        $response = HttpClient::make()->withUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36')->get("suggest", [
-            'word' => $word,
-        ]);
+        $response = HttpClient::make()
+            ->withUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36')
+            ->get("suggest", [
+                'word' => $word,
+            ]);
         if ($response->ok()) {
             $words = json_decode($response->body(), true);
             $ret = [];

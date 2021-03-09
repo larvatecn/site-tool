@@ -108,7 +108,7 @@ class Site
      */
     public static function getSSLHosts($host, $port = 443, $timeout = 60)
     {
-        $cert = \Larva\Support\HttpClient::getCertificate($host, $port, $timeout);
+        $cert = HttpClient::getCertificate($host, $port, $timeout);
         if ($cert != false) {
             if (isset($cert['extensions']['subjectAltName'])) {
                 $subjectAltName = str_replace('DNS:', '', $cert['extensions']['subjectAltName']);
@@ -134,7 +134,7 @@ class Site
      */
     public static function getSSLSubject($host, $port = 443, $timeout = 60)
     {
-        $cert = \Larva\Support\HttpClient::getCertificate($host, $port, $timeout);
+        $cert = HttpClient::getCertificate($host, $port, $timeout);
         if ($cert != false && isset($cert['subject']['CN'])) {
             return $cert['subject']['CN'];
         }
@@ -172,11 +172,11 @@ class Site
      */
     protected static function getResponse(string $hostname)
     {
-        $http = new HttpClient();
-        $http->withoutRedirecting();
-        $http->withoutVerifying();
         try {
-            $response = $http->get($hostname);
+            $response = HttpClient::make()
+                ->withoutRedirecting()
+                ->withoutVerifying()
+                ->get($hostname);
             if ($response && $response->ok()) {
                 return $response;
             }

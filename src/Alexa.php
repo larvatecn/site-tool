@@ -25,9 +25,8 @@ class Alexa
      */
     public static function getRank(string $domain)
     {
-        $http = new HttpClient();
         try {
-            $response = $http->get("http://data.alexa.com/data", [
+            $response = HttpClient::make()->get("http://data.alexa.com/data", [
                 'cli' => 10,
                 'url' => $domain
             ])->xml();

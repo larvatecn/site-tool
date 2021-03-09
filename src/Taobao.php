@@ -24,13 +24,13 @@ class Taobao
      */
     public static function suggestion(string $word)
     {
-        $http = new HttpClient();
-        $response = $http->withHeaders([
-            'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36'
-        ])->get("https://suggest.taobao.com/sug", [
-            'q' => $word,
-            'code' => 'utf-8',
-        ]);
+        $response = HttpClient::make()
+            ->withHeaders([
+                'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36'
+            ])->get("https://suggest.taobao.com/sug", [
+                'q' => $word,
+                'code' => 'utf-8',
+            ]);
         if ($response->ok()) {
             $ret = [];
             foreach ($response->json()['result'] as $word) {

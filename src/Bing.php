@@ -27,11 +27,10 @@ class Bing
      */
     public static function Push($site, $token, $urls)
     {
-        $client = new HttpClient();
         if (is_array($urls)) {
-            return $client->asJson()->post("https://ssl.bing.com/webmaster/api.svc/json/SubmitUrlbatch?apikey={$token}", ['siteUrl' => $site, 'urlList' => $urls])->json();
+            return HttpClient::make()->postJSON("https://ssl.bing.com/webmaster/api.svc/json/SubmitUrlbatch?apikey={$token}", ['siteUrl' => $site, 'urlList' => $urls]);
         } else {
-            return $client->asJson()->post("https://ssl.bing.com/webmaster/api.svc/json/SubmitUrl?apikey={$token}", ['siteUrl' => $site, 'url' => $urls])->json();
+            return HttpClient::make()->postJSON("https://ssl.bing.com/webmaster/api.svc/json/SubmitUrl?apikey={$token}", ['siteUrl' => $site, 'url' => $urls]);
         }
     }
 
@@ -40,25 +39,29 @@ class Bing
      * @param string $site
      * @param string $token
      * @return array
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \Larva\Support\Exception\ConnectionException
      */
-    public static function GetUrlSubmissionQuota($site, $token)
+    public static function GetUrlSubmissionQuota(string $site, string $token)
     {
-        $client = new HttpClient();
-        return $client->get("https://ssl.bing.com/webmaster/api.svc/json/GetUrlSubmissionQuota", ['siteUrl' => $site, 'apikey' => $token])->json();
+        return HttpClient::make()->getJSON("https://ssl.bing.com/webmaster/api.svc/json/GetUrlSubmissionQuota", ['siteUrl' => $site, 'apikey' => $token]);
     }
 
     /**
      * 获取推荐搜索
      * @param string $word
      * @return array|false
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \Larva\Support\Exception\ConnectionException
      */
-    public static function suggestion($word)
+    public static function suggestion(string $word)
     {
-        $http = new HttpClient();
-        $response = $http->withUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36')->get("https://sg1.api.bing.com/qsonhs.aspx", [
-            'q' => $word,
-            'type' => 'json',
-        ]);
+        $response = HttpClient::make()
+            ->withUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36')
+            ->get("https://sg1.api.bing.com/qsonhs.aspx", [
+                'q' => $word,
+                'type' => 'json',
+            ]);
         if ($response->ok()) {
             $ret = [];
             $arr = json_decode($response->body(), true);

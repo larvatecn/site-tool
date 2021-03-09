@@ -25,9 +25,10 @@ class Sogou
      */
     public static function getRank($url)
     {
-        $response = HttpClient::make()->get("http://rank.ie.sogou.com/sogourank.php", [
-            'ur' => $url
-        ]);
+        $response = HttpClient::make()
+            ->get("http://rank.ie.sogou.com/sogourank.php", [
+                'ur' => $url
+            ]);
         if ($response->ok()) {
             return intval(str_replace(['sogourank=', "\r", "\n"], '', $response->body()));
         } else {
@@ -43,9 +44,10 @@ class Sogou
      */
     public static function checkInclude(string $url): bool
     {
-        $response = HttpClient::make()->withHeaders([
-            'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36'
-        ])->get("https://www.sogou.com/web?query={$url}");
+        $response = HttpClient::make()
+            ->withHeaders([
+                'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36'
+            ])->get("https://www.sogou.com/web?query={$url}");
         if (!strpos($response->body(), '点击此处提交')) {
             return true;
         } else {
@@ -57,16 +59,17 @@ class Sogou
      * 获取推荐搜索
      * @param string $word
      * @return array|false
-     * @throws GuzzleException
+     * @throws GuzzleException|\Larva\Support\Exception\ConnectionException
      */
     public static function suggestion(string $word)
     {
-        $response = HttpClient::make()->withHeaders([
-            'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36'
-        ])->get("http://w.sugg.sogou.com/sugg/ajaj_json.jsp", [
-            'key' => $word,
-            'type' => 'web'
-        ]);
+        $response = HttpClient::make()
+            ->withHeaders([
+                'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36'
+            ])->get("http://w.sugg.sogou.com/sugg/ajaj_json.jsp", [
+                'key' => $word,
+                'type' => 'web'
+            ]);
         if ($response->ok()) {
             $content = str_replace(['window.sogou.sug(', ",-1);"], '', mb_convert_encoding($response->body(), "UTF-8", "GB2312"));
             $arr = json_decode($content, true);

@@ -22,7 +22,7 @@ class Domain
      * @return \Pdp\Domain
      * @see https://github.com/jeremykendall/php-domain-parser
      */
-    public static function Resolve($domain)
+    public static function Resolve(string $domain): \Pdp\Domain
     {
         $rules = Rules::createFromPath('../resources/public_suffix_list.dat');
         return $rules->resolve($domain);
@@ -34,7 +34,7 @@ class Domain
      * @param string $host
      * @return bool|\Pdp\Domain
      */
-    public function parseDomain($host)
+    public function parseDomain(string $host)
     {
         if (strpos ( $host, '://' ) !== false) {
             $url = parse_url ( $host );
