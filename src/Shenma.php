@@ -22,14 +22,19 @@ class Shenma
      * @param string $username
      * @param string $token
      * @param string|array $urls
-     * @return mixed
+     * @return array
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \Larva\Support\Exception\ConnectionException
      */
     public static function MIPPush($site, $username, $token, $urls)
     {
         if (is_array($urls)) {
             $urls = implode("\n", $urls);
         }
-        return HttpClient::make()->postText("https://data.zhanzhang.sm.cn/urls?site={$site}&username={$username}&resource_name=mip_add&token={$token}", $urls);
+        return HttpClient::make()
+            ->acceptJson()
+            ->postText("https://data.zhanzhang.sm.cn/urls?site={$site}&username={$username}&resource_name=mip_add&token={$token}", $urls)
+            ->json();
     }
 
     /**
@@ -38,7 +43,7 @@ class Shenma
      * @param string $username
      * @param string $token Token
      * @param string|array $urls
-     * @return mixed
+     * @return array
      * @throws \GuzzleHttp\Exception\GuzzleException
      * @throws \Larva\Support\Exception\ConnectionException
      */
@@ -47,6 +52,9 @@ class Shenma
         if (is_array($urls)) {
             $urls = implode("\n", $urls);
         }
-        return HttpClient::make()->postText("https://data.zhanzhang.sm.cn/urls?site={$site}&username={$username}&resource_name=mip_clean&token={$token}", $urls)->json();
+        return HttpClient::make()
+            ->acceptJson()
+            ->postText("https://data.zhanzhang.sm.cn/urls?site={$site}&username={$username}&resource_name=mip_clean&token={$token}", $urls)
+            ->json();
     }
 }

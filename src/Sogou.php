@@ -26,6 +26,7 @@ class Sogou
     public static function getRank($url)
     {
         $response = HttpClient::make()
+            ->withUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36')
             ->get("http://rank.ie.sogou.com/sogourank.php", [
                 'ur' => $url
             ]);
@@ -45,9 +46,8 @@ class Sogou
     public static function checkInclude(string $url): bool
     {
         $response = HttpClient::make()
-            ->withHeaders([
-                'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36'
-            ])->get("https://www.sogou.com/web?query={$url}");
+            ->withUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36')
+            ->get("https://www.sogou.com/web?query={$url}");
         if (!strpos($response->body(), '点击此处提交')) {
             return true;
         } else {
@@ -64,9 +64,8 @@ class Sogou
     public static function suggestion(string $word)
     {
         $response = HttpClient::make()
-            ->withHeaders([
-                'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36'
-            ])->get("http://w.sugg.sogou.com/sugg/ajaj_json.jsp", [
+            ->withUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36')
+            ->get("http://w.sugg.sogou.com/sugg/ajaj_json.jsp", [
                 'key' => $word,
                 'type' => 'web'
             ]);

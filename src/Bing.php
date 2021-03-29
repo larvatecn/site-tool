@@ -28,9 +28,11 @@ class Bing
     public static function Push($site, $token, $urls)
     {
         if (is_array($urls)) {
-            return HttpClient::make()->postJSON("https://ssl.bing.com/webmaster/api.svc/json/SubmitUrlbatch?apikey={$token}", ['siteUrl' => $site, 'urlList' => $urls]);
+            return HttpClient::make()
+                ->postJSON("https://ssl.bing.com/webmaster/api.svc/json/SubmitUrlbatch?apikey={$token}", ['siteUrl' => $site, 'urlList' => $urls]);
         } else {
-            return HttpClient::make()->postJSON("https://ssl.bing.com/webmaster/api.svc/json/SubmitUrl?apikey={$token}", ['siteUrl' => $site, 'url' => $urls]);
+            return HttpClient::make()
+                ->postJSON("https://ssl.bing.com/webmaster/api.svc/json/SubmitUrl?apikey={$token}", ['siteUrl' => $site, 'url' => $urls]);
         }
     }
 
@@ -44,7 +46,8 @@ class Bing
      */
     public static function GetUrlSubmissionQuota(string $site, string $token)
     {
-        return HttpClient::make()->getJSON("https://ssl.bing.com/webmaster/api.svc/json/GetUrlSubmissionQuota", ['siteUrl' => $site, 'apikey' => $token]);
+        return HttpClient::make()
+            ->getJSON("https://ssl.bing.com/webmaster/api.svc/json/GetUrlSubmissionQuota", ['siteUrl' => $site, 'apikey' => $token]);
     }
 
     /**

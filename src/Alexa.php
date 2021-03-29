@@ -26,10 +26,12 @@ class Alexa
     public static function getRank(string $domain)
     {
         try {
-            $response = HttpClient::make()->get("http://data.alexa.com/data", [
-                'cli' => 10,
-                'url' => $domain
-            ])->xml();
+            $response = HttpClient::make()
+                ->get("http://data.alexa.com/data", [
+                    'cli' => 10,
+                    'url' => $domain
+                ])
+                ->xml();
             $alexa = [];
             if (isset($response['SD']['COUNTRY']['@attributes']['RANK']) && $response['SD']['COUNTRY']['@attributes']['NAME'] == 'China') {
                 $alexa['china_rank'] = $response['SD']['COUNTRY']['@attributes']['RANK'];

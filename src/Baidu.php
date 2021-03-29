@@ -34,8 +34,7 @@ class Baidu
         }
         $response = HttpClient::make()
             ->acceptJson()
-            ->withBody($urls, 'text/plain')
-            ->post("http://data.zz.baidu.com/urls?site={$site}&token={$token}");
+            ->postText("http://data.zz.baidu.com/urls?site={$site}&token={$token}", $urls);
         return $response->json();
     }
 
@@ -53,8 +52,7 @@ class Baidu
         }
         $response = HttpClient::make()
             ->acceptJson()
-            ->withBody($urls, 'text/plain')
-            ->post("http://data.zz.baidu.com/update?site={$site}&token={$token}");
+            ->postText("http://data.zz.baidu.com/update?site={$site}&token={$token}", $urls);
         return $response->json();
     }
 
@@ -72,9 +70,9 @@ class Baidu
         if (is_array($urls)) {
             $urls = implode("\n", $urls);
         }
-        $response = HttpClient::make()->acceptJson()
-            ->withBody($urls, 'text/plain')
-            ->post("http://data.zz.baidu.com/del?site={$site}&token={$token}");
+        $response = HttpClient::make()
+            ->acceptJson()
+            ->postText("http://data.zz.baidu.com/del?site={$site}&token={$token}", $urls);
         return $response->json();
     }
 
@@ -94,8 +92,7 @@ class Baidu
         }
         $response = HttpClient::make()
             ->acceptJson()
-            ->withBody($urls, 'text/plain')
-            ->post("http://data.zz.baidu.com/urls?site={$site}&token={$token}&type=daily");
+            ->postText("http://data.zz.baidu.com/urls?site={$site}&token={$token}&type=daily", $urls);
         return $response->json();
     }
 
@@ -106,7 +103,7 @@ class Baidu
      * @throws ConnectionException
      * @throws GuzzleException
      */
-    public static function SpiderPC($url)
+    public static function SpiderPC(string $url)
     {
         if (strpos($url, "://") == false) {
             $url = "http://" . $url;
@@ -125,7 +122,7 @@ class Baidu
      * @param string $url
      * @return string|false
      */
-    public static function SpiderMobile($url)
+    public static function SpiderMobile(string $url)
     {
         if (strpos($url, "://") == false) {
             $url = "http://" . $url;
@@ -161,7 +158,7 @@ class Baidu
      * @param string $word
      * @return array|false
      */
-    public static function suggestion($word)
+    public static function suggestion(string $word)
     {
         $response = HttpClient::make()
             ->withUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36')
@@ -185,7 +182,7 @@ class Baidu
      * @param boolean $assoc true:Array,false:Object
      * @return array/object
      */
-    private static function ext_json_decode($json, $assoc = true)
+    private static function ext_json_decode(string $json, $assoc = true)
     {
         if (preg_match('/\w:/', $json)) {
             $json = preg_replace('/(\w+):/is', '"$1":', $json);

@@ -31,9 +31,11 @@ class Aizhan
         if (is_array($domains)) {
             $domains = implode('|', $domains);
         }
-        return HttpClient::make()->postJSON("https://apistore.aizhan.com/baidurank/siteinfos/" . $key,[
-            'domains' => $domains
-        ]);
+        return HttpClient::make()
+            ->acceptJson()
+            ->post("https://apistore.aizhan.com/baidurank/siteinfos/" . $key, [
+                'domains' => $domains
+            ])
+            ->json();
     }
-
 }
