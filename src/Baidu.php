@@ -32,9 +32,10 @@ class Baidu
         if (is_array($urls)) {
             $urls = implode("\n", $urls);
         }
-        $response = HttpClient::make()->post("http://data.zz.baidu.com/urls?site={$site}&token={$token}", [
-            'body' => $urls
-        ]);
+        $response = HttpClient::make()
+            ->acceptJson()
+            ->withBody($urls, 'text/plain')
+            ->post("http://data.zz.baidu.com/urls?site={$site}&token={$token}");
         return $response->json();
     }
 
@@ -50,9 +51,10 @@ class Baidu
         if (is_array($urls)) {
             $urls = implode("\n", $urls);
         }
-        $response = HttpClient::make()->acceptJson()->post("http://data.zz.baidu.com/update?site={$site}&token={$token}", [
-            'body' => $urls
-        ]);
+        $response = HttpClient::make()
+            ->acceptJson()
+            ->withBody($urls, 'text/plain')
+            ->post("http://data.zz.baidu.com/update?site={$site}&token={$token}");
         return $response->json();
     }
 
@@ -70,9 +72,9 @@ class Baidu
         if (is_array($urls)) {
             $urls = implode("\n", $urls);
         }
-        $response = HttpClient::make()->acceptJson()->post("http://data.zz.baidu.com/del?site={$site}&token={$token}", [
-            'body' => $urls
-        ]);
+        $response = HttpClient::make()->acceptJson()
+            ->withBody($urls, 'text/plain')
+            ->post("http://data.zz.baidu.com/del?site={$site}&token={$token}");
         return $response->json();
     }
 
@@ -90,9 +92,10 @@ class Baidu
         if (is_array($urls)) {
             $urls = implode("\n", $urls);
         }
-        $response = HttpClient::make()->acceptJson()->post("http://data.zz.baidu.com/urls?site={$site}&token={$token}&type=daily", [
-            'body' => $urls
-        ]);
+        $response = HttpClient::make()
+            ->acceptJson()
+            ->withBody($urls, 'text/plain')
+            ->post("http://data.zz.baidu.com/urls?site={$site}&token={$token}&type=daily");
         return $response->json();
     }
 
