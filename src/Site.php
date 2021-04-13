@@ -106,23 +106,10 @@ class Site
      * @param int $timeout
      * @return array|boolean
      */
-    public static function getSSLHosts($host, $port = 443, $timeout = 60)
+    public static function getSSLHostnames(string $host, $port = 443, $timeout = 60)
     {
-        $cert = HttpClient::getCertificate($host, $port, $timeout);
-        if ($cert != false) {
-            if (isset($cert['extensions']['subjectAltName'])) {
-                $subjectAltName = str_replace('DNS:', '', $cert['extensions']['subjectAltName']);
-                $dns = explode(',', $subjectAltName);
-                $hosts = [];
-                foreach ($dns as $host) {
-                    $hosts[] = trim($host);
-                }
-                return $hosts;
-            } else if (isset($cert['subject']['CN'])) {
-                return [$cert['subject']['CN']];
-            }
-        }
-        return false;
+        $cert = HttpClient::getSSLCert($host, $port, $timeout);
+        return $cert->getDomains();
     }
 
     /**
@@ -134,11 +121,8 @@ class Site
      */
     public static function getSSLSubject($host, $port = 443, $timeout = 60)
     {
-        $cert = HttpClient::getCertificate($host, $port, $timeout);
-        if ($cert != false && isset($cert['subject']['CN'])) {
-            return $cert['subject']['CN'];
-        }
-        return false;
+        $cert = HttpClient::getSSLCert($host, $port, $timeout);
+        return $cert->getDomain();
     }
 
     /**
