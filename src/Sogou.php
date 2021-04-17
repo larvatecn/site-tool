@@ -41,7 +41,7 @@ class Sogou
      * 检查是否收录页面
      * @param string $url
      * @return bool
-     * @throws GuzzleException
+     * @throws GuzzleException|\Larva\Support\Exception\ConnectionException
      */
     public static function checkInclude(string $url): bool
     {
