@@ -1,46 +1,82 @@
 {
-    "name": "larva/site-tool",
-    "description": "Site Tool components",
-    "keywords": [
-        "support",
-        "http",
-        "guzzle"
+  "name": "larva/site-tool",
+  "description": "Site Tool components",
+  "keywords": [
+    "support",
+    "http",
+    "guzzle"
+  ],
+  "license": "MIT",
+  "support": {
+    "issues": "https://github.com/larvatech/site-tool/issues",
+    "source": "https://github.com/larvatech/site-tool"
+  },
+  "authors": [
+    {
+      "name": "Larva Team",
+      "email": "support@larva.com.cn"
+    }
+  ],
+  "require": {
+    "php": "^7.2 || ^8.0",
+    "ext-mbstring": "*",
+    "ext-simplexml": "*",
+    "ext-json": "*",
+    "ext-dom": "*",
+    "ext-libxml": "*",
+    "ext-intl": "*",
+    "ext-ctype": "*",
+    "ext-openssl": "*",
+    "larva/support": "^1.0",
+    "jeremykendall/php-domain-parser": "^5.7"
+  },
+  "require-dev": {
+    "mockery/mockery": "^1.2",
+    "phpunit/phpunit": "^9.5",
+    "brainmaestro/composer-git-hooks": "^2.8",
+    "friendsofphp/php-cs-fixer": "^3.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Larva\\Site\\Tool\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/"
+    }
+  },
+  "extra": {
+    "hooks": {
+      "pre-commit": [
+        "composer check-style",
+        "composer test"
+      ],
+      "pre-push": [
+        "composer test"
+      ]
+    }
+  },
+  "scripts": {
+    "post-update-cmd": [
+      "cghooks remove",
+      "cghooks add --ignore-lock",
+      "cghooks update"
     ],
-    "support": {
-        "issues": "https://github.com/larvatech/site-tool/issues",
-        "source": "https://github.com/larvatech/site-tool"
-    },
-    "authors": [
-        {
-            "name": "Larva Team",
-            "email": "support@larva.com.cn"
-        }
+    "post-merge": "composer install",
+    "post-install-cmd": [
+      "cghooks remove",
+      "cghooks add --ignore-lock",
+      "cghooks update"
     ],
-    "require": {
-        "php": "^7.2 || ^8.0",
-        "ext-mbstring": "*",
-        "ext-simplexml": "*",
-        "ext-json": "*",
-        "ext-dom": "*",
-        "ext-libxml": "*",
-        "ext-intl": "*",
-        "ext-ctype": "*",
-        "ext-openssl": "*",
-        "larva/support": "^1.0",
-        "jeremykendall/php-domain-parser": "^5.7"
-    },
-    "require-dev": {
-        "phpunit/phpunit": "^9.5"
-    },
-    "autoload": {
-        "psr-4": {
-            "Larva\\Site\\Tool\\": "src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Larva\\Site\\Tool\\Tests\\": "tests/"
-        }
-    },
-    "license": "MIT"
+    "cghooks": "./vendor/bin/cghooks",
+    "check-style": "./vendor/bin/php-cs-fixer fix --using-cache=no --diff --dry-run --ansi",
+    "fix-style": "./vendor/bin/php-cs-fixer fix --using-cache=no --ansi",
+    "test": "./vendor/bin/phpunit --colors"
+  },
+  "scripts-descriptions": {
+    "test": "Run all tests.",
+    "check-style": "Run style checks (only dry run - no fixing!).",
+    "fix-style": "Run style checks and fix violations."
+  }
 }

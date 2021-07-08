@@ -37,7 +37,6 @@ class Site
                 return false;
             }
         } catch (\Exception $exception) {
-
         }
         try {
             $response = static::getResponse("https://" . $hostname);
@@ -164,7 +163,6 @@ class Site
                 return $response;
             }
         } catch (\Exception $exception) {
-
         }
         return false;
     }

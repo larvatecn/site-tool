@@ -17,6 +17,7 @@ Thumbs.db
 
 # phpunit itself is not needed
 phpunit.phar
+.phpunit.result.cache
 
 # local phpunit config
 /phpunit.xml
@@ -35,3 +36,5 @@ package-lock.json
 # Bower components
 bower_components
 /package-lock.json
+cghooks.lock
+.php-cs-fixer.cache

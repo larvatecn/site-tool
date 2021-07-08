@@ -35,13 +35,13 @@ class Domain
      */
     public function parseDomain(string $host)
     {
-        if (strpos ( $host, '://' ) !== false) {
-            $url = parse_url ( $host );
-            if (isset ( $url ['host'] )) {
+        if (strpos($host, '://') !== false) {
+            $url = parse_url($host);
+            if (isset($url ['host'])) {
                 $host = $url ['host'];
             }
         }
-        if ($host && strpos ( $host, '.' ) !== false) {
+        if ($host && strpos($host, '.') !== false) {
             return static::Resolve($host);
         }
         return false;
@@ -60,8 +60,8 @@ class Domain
             $date2 = $datestart;
             $datestart = $tmp;
         }
-        list ($Y1, $m1, $d1) = explode('-', $datestart);
-        list ($Y2, $m2, $d2) = explode('-', $date2);
+        list($Y1, $m1, $d1) = explode('-', $datestart);
+        list($Y2, $m2, $d2) = explode('-', $date2);
         $Y = $Y2 - $Y1;
         $m = $m2 - $m1;
         $d = $d2 - $d1;
