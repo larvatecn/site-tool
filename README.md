@@ -1,11 +1,11 @@
 # site-tool
 
-<p align="center">站长工具</p>
+站长工具包
 
-<p align="center">
-<a href="https://packagist.org/packages/larva/site-tool"><img src="https://poser.pugx.org/larva/site-tool/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/larva/site-tool"><img src="https://poser.pugx.org/larva/site-tool/v/unstable.svg" alt="Latest Unstable Version"></a>
-</p>
+[![CI](https://github.com/larvatecn/site-tool/actions/workflows/ci.yml/badge.svg)](https://github.com/larvatecn/site-tool/actions/workflows/ci.yml)
+[![License](https://poser.pugx.org/larva/site-tool/license.svg)](https://packagist.org/packages/larva/site-tool)
+[![Latest Stable Version](https://poser.pugx.org/larva/site-tool/v/stable.png)](https://packagist.org/packages/larva/site-tool)
+[![Total Downloads](https://poser.pugx.org/larva/site-tool/downloads.png)](https://packagist.org/packages/larva/site-tool)
 
 ## 环境需求
 
